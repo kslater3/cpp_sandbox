@@ -1,0 +1,31 @@
+     1                                 %line 1+1 simple.asm
+     2                                 
+     3                                 
+     4                                 [section .data]
+     5                                 
+     6                                 EXIT_SUCCESS equ 0
+     7                                 SYS_EXIT equ 60
+     8                                 
+     9                                 
+    10 00000000 11                     bVar1 db 17
+    11                                 
+    12 00000001 6842                   wVar1 dw 17000
+    13 00000003 2823                   wVar2 dw 9000
+    14 00000005 0000                   wResult dw 0
+    15                                 
+    16                                 
+    17                                 [section .text]
+    18                                 [global _start]
+    19                                 _start:
+    20                                 
+    21 00000000 8A0425[00000000]        mov al, byte[bVar1]
+    22                                 
+    23 00000007 668B0425[00000000]      mov ax, word[wVar1]
+    24 0000000F 66030425[00000000]      add ax, word[wVar2]
+    25 00000017 66890425[00000000]      mov word[wResult], ax
+    26                                 
+    27                                 last:
+    28 0000001F 48C7C03C000000          mov rax, SYS_EXIT
+    29 00000026 48C7C700000000          mov rdi, EXIT_SUCCESS
+    30 0000002D 0F05                    syscall
+    31                                 
